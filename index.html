@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>名古屋スポンジボールテニスクラブ｜無理せず動く、夢中で続く。</title>
+  <meta name="description" content="名古屋スポンジボールテニスクラブの紹介、練習日程、参加者募集、活動の様子をお知らせします。初心者歓迎。" />
+  <meta property="og:title" content="名古屋スポンジボールテニスクラブ｜無理せず動く、夢中で続く。" />
+  <meta property="og:description" content="クラブ紹介・練習日程・参加者募集・活動写真" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    body { font-family: 'Noto Sans JP', sans-serif; line-height: 1.6; margin: 0; }
+    header, section, footer { padding: 1rem; }
+    h1, h2 { margin: 0 0 0.5rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>無理せず動く、夢中で続く。<br>名古屋スポンジボールテニスクラブ</h1>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>クラブ紹介</h2>
+      <p class="lead">
+        柔らかいボールと短いラケットで、気軽に楽しむテニス。<br>
+        年齢や経験に関係なく、仲間と笑顔で汗を流せます。<br>
+        運動不足解消や新しい出会いにもぴったりです。
+      </p>
+      <ul>
+        <li>活動場所：名古屋市内の公共体育館</li>
+        <li>活動時間：土日中心／1回3時間半</li>
+        <li>対象：社会人〜初老／経験者歓迎</li>
+        <li>持ち物：室内シューズ、動きやすい服装（ラケット貸出有）</li>
+        <li>開催頻度：月1〜2回</li>
+      </ul>
+    </section>
+
+    <section id="schedule">
+      <h2>練習日程</h2>
+      <p>最新の予約状況により変更となる場合があります。参加前に必ずご確認ください。</p>
+      <table>
+        <thead>
+          <tr>
+            <th>日付</th><th>曜日</th><th>時間</th><th>場所</th><th>メモ</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody"></tbody>
+      </table>
+    </section>
+
+    <section id="join">
+      <h2>体験参加のご案内</h2>
+      <form>
+        <label>お名前（必須）<br><input type="text" required></label><br>
+        <label>メールアドレス（必須）<br><input type="email" required></label><br>
+        <label>テニス経験<br>
+          <select>
+            <option value="なし">なし</option>
+            <option value="あり">あり</option>
+          </select>
+        </label><br>
+        <label>希望参加日（任意）<br><input type="text"></label><br>
+        <label>メッセージ（任意）<br><textarea></textarea></label><br>
+        <button type="submit">送信</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 名古屋スポンジボールテニスクラブ</p>
+  </footer>
+
+  <script>
+    const scheduleData = [
+      { date: '2025-08-31T13:00', durationMin: 210, place: '北生涯学習センター', note: '' },
+      { date: '2025-09-07T09:00', durationMin: 210, place: '西生涯学習センター', note: '' },
+      { date: '2025-09-14T13:00', durationMin: 210, place: '西生涯学習センター', note: '' }
+    ];
+    const youbi = ['日','月','火','水','木','金','土'];
+    const fmt = d => {
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      const wd = youbi[d.getDay()];
+      const h = String(d.getHours()).padStart(2,'0');
+      const min = String(d.getMinutes()).padStart(2,'0');
+      return {date:`${y}/${m}/${day}`, time:`${h}:${min}`, wd};
+    };
+    const tbody = document.getElementById('scheduleBody');
+    scheduleData.forEach(ev => {
+      const d = new Date(ev.date);
+      const {date, time, wd} = fmt(d);
+      const end = new Date(d.getTime() + ev.durationMin*60000);
+      const endFmt = fmt(end).time;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${date}</td><td>${wd}</td><td>${time}〜${endFmt}</td><td>${ev.place}</td><td>${ev.note}</td>`;
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
